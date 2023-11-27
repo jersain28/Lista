@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Almacenamiento en la nube</h1>
+    <form>
+        <input type="file" name="myfile" id="myfile">
+    </form>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+      import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-storage.js";
+      
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+      
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+      apiKey: "AIzaSyDR0Jmqy5ki3fW8ni6YiRjNSx7XF_WqbcM",
+      authDomain: "fir-javascript-crud-761be.firebaseapp.com",
+      projectId: "fir-javascript-crud-761be",
+      storageBucket: "fir-javascript-crud-761be.appspot.com",
+      messagingSenderId: "937894456001",
+      appId: "1:937894456001:web:8e0360ef59e8e0b0444240"
+      };
+      
+     // Initialize Firebase
+     const app = initializeApp(firebaseConfig);
+
+     const storage = getStorage(app);
+
+     const uploadFile = file => {
+        const storageRef = ref(storage, 'images/' + file.name);
+
+        // 'file' comes from the Blob or File API
+        uploadBytes(storageRef, file).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+        });
+     }
+
+     document.querySelector('#myfile')
+        .addEventListener('change', e =>{
+            uploadFile(e.target.files[0]);
+     });
+
+    </script>
+</body>
+</html>
